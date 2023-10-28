@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+ <style>
+  
+     .container1 {
+  border-radius: 8px;
+  background-color: white;
+  width: 600px;
+  padding: 30px 30px;
+  text-align:center;
+  margin:5px auto;
+ 
+ }
+ .b{
+color: "white";
+ text-align:center;
+ }
+   #popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 10%;
+            height: 10%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        #popup-content {
+            background-color:#fff;
+            padding: 20px;
+            border-radius: 5px;
+            color:white;
+            
+        }
+        input[type="text"],
+        input[type="date"],
+        input[type="email"],
+        input[type="tel"],
+        select {
+            border: 2px solid #000; /* You can change the color and width as needed */
+            border-radius: 5px;
+            padding: 5px;
+            width: 20%;
+        }
+
+  
+        input[type="checkbox"] {
+            margin-right: 2px;
+        }
+      button {
+            background-color: #0074D9; /* Button background color */
+            color: #fff; /* Text color */
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056A3; 
+        }
+        body{
+        font-family:Arila,helvetica,sans-serif;
+        background-color:#00ADF2;
+         justify-content: center;
+      
+        }
+    </style>
+</head>
+<body>
+<h1 class="b">Customer survey file</h1>
+<br>
+<div class="container1" >
+    <form id="survey-form" class="servey">
+        <label for="first-name">First Name:</label>
+        <input type="text" id="first-name" required>
+          <label for="last-name">Last Name:</label>
+        <input type="text" id="last-name" required>
+                <br></br>
+
+        <label for="dob">Date of Birth:</label>
+        <input type="date" id="dob" required>
+         <label for="country">Country:</label>
+        <select id="country" required>
+            <option value="">Select Country</option>
+            <option value="USA">USA</option>
+            <option value="Canada">Canada</option>
+            <!-- Add more countries as needed -->
+        </select>
+                <br></br>
+
+        <label>Gender:</label>
+        <input type="radio" id="male" name="gender" value="Male">
+        <label for="male">Male</label>
+        <input type="radio" id="female" name="gender" value="Female">
+
+        <label for="female">Female</label>
+                <br></br>
+        <label for="profession">Profession:</label>
+        <input type="text" id="profession" required>
+        <br></br>
+        <label for="email">Email:</label>
+        <input type="email" id="email" required>
+                
+        <label for="mobile">Mobile Number:</label>
+        <input type="tel" id="mobile" required>
+                  <br></br>
+               
+         <label>In this first time you are using product  service ?</label>
+         <br>
+        <input type="radio"   value="yes">
+        <label >yes</label>
+        <input type="radio"   value="no">
+            <label >No</label>
+                <br></br>
+         <label>Would you suggestion your friends and colleague?</label>
+         <br>
+        <input type="radio"   value="yes">
+        <label >yes</label>
+        <input type="radio"   value="no">
+           <label >No</label>
+                <br></br>
+        <label>How satisfied you are with our company overall?</label>
+         <br>
+        <input type="radio"   value="Satisfied">
+        <label >Satisfied</label>
+        <input type="radio"   value="undecided">
+           <label >Undecided</label>
+            <input type="radio"   value="Unsatisfied">
+           <label >Unsatisfied</label>
+           <br></br>
+           Do you have suggestion improve our Service?<br>
+           <textarea name="message" rows="8" cols="60"></textarea>
+                <br></br>
+        <button type="button" id="submit-button">Submit</button>
+        <button type="reset">Reset</button>
+    </form>
+</div>
+  
+    <div id="popup">
+        <div id="popup-content">
+            <h2>Survey Form Data</h2>
+            <p><strong>First Name:</strong> <span id="popup-first-name"></span></p>
+            <p><strong>Last Name:</strong> <span id="popup-last-name"></span></p>
+            <p><strong>Date of Birth:</strong> <span id="popup-dob"></span></p>
+            <p><strong>Country:</strong> <span id="popup-country"></span></p>
+            <p><strong>Gender:</strong> <span id="popup-gender"></span></p>
+            <p><strong>Profession:</strong> <span id="popup-profession"></span></p>
+            <p><strong>Email:</strong> <span id="popup-email"></span></p>
+            <p><strong>Mobile Number:</strong> <span id="popup-mobile"></span></p>
+            <button id="close-popup">Close</button>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById("survey-form");
+        const popup = document.getElementById("popup");
+        const closePopup = document.getElementById("close-popup");
+
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            // Get form input values
+            const firstName = document.getElementById("first-name").value;
+            const lastName = document.getElementById("last-name").value;
+            const dob = document.getElementById("dob").value;
+            const country = document.getElementById("country").value;
+            const genderInputs = document.querySelectorAll('input[name="gender"]:checked');
+            const gender = Array.from(genderInputs).map(input => input.value).join(", ");
+            const profession = document.getElementById("profession").value;
+            const email = document.getElementById("email").value;
+            const mobile = document.getElementById("mobile").value;
+
+            
+            document.getElementById("popup-first-name").textContent = firstName;
+            document.getElementById("popup-last-name").textContent = lastName;
+            document.getElementById("popup-dob").textContent = dob;
+            document.getElementById("popup-country").textContent = country;
+            document.getElementById("popup-gender").textContent = gender;
+            document.getElementById("popup-profession").textContent = profession;
+            document.getElementById("popup-email").textContent = email;
+            document.getElementById("popup-mobile").textContent = mobile;
+
+          
+            popup.style.display = "flex";
+        });
+
+        closePopup.addEventListener("click", function () {
+        
+            popup.style.display = "none";
+            form.reset();
+        });
+    </script>
+</body>
+</html>
